@@ -16,15 +16,19 @@ int main(int argc, char* argv[]) {
 	if (argc >= 2) {
 		PeakDllFilePath = argv[1];
 	} else {
-		std::cout << "Please locate Assembly-CSharp.dll file in <...SteamLibrary\\steamapps\\common\\PEAK\\PEAK_Data\\Managed>" << '\n';
-		std::cout << "And paste a file path without spaces and any quotes: (< >, <\"'>)" << '\n';
-		std::cout << "If path contains spaces, please use drag-n-drop to provide path" << '\n';
+		std::cout << "Please locate Assembly-CSharp.dll file in <...steamapps\\common\\PEAK\\PEAK_Data\\Managed> folder" << '\n';
+		std::cout << "Next time u can just drag'n'drop dll file into this program, it'll patch it automatically" << '\n';
 		std::cout << "Paste path to file: ";
-		std::cin >> PeakDllFilePath;
+		std::getline(std::cin, PeakDllFilePath);
+
+		PeakDllFilePath.erase(
+			std::remove(PeakDllFilePath.begin(), PeakDllFilePath.end(), '\"'),
+			PeakDllFilePath.end());
 	}
 	
 	std::cout << "[?] Entered path: " << PeakDllFilePath << " [?]" << '\n';
 	Sleep(500);
+	
 
 
 	if (!fs::exists(PeakDllFilePath)) {
@@ -32,7 +36,7 @@ int main(int argc, char* argv[]) {
 		system("pause");
 		return 1;
 	}
-
+	return 0;
 	std::vector<uint8_t> isLockedNewBody(bodySize, 0x00);
 	isLockedNewBody[0] = 0x20;  // ldc.i4
 	isLockedNewBody[1] = 0x00;
