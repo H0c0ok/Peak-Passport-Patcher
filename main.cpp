@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
 		system("pause");
 		return 1;
 	}
-	return 0;
+
 	std::vector<uint8_t> isLockedNewBody(bodySize, 0x00);
 	isLockedNewBody[0] = 0x20;  // ldc.i4
 	isLockedNewBody[1] = 0x00;
